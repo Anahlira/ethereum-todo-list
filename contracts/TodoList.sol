@@ -10,6 +10,12 @@ contract TodoList{
         bool completed;
     }
 
+    event TaskCreated(
+        uint id, 
+        string content,
+        bool completed
+    );
+
     mapping(uint => Task) public tasks; // key => the struct that we defined
 
     // here you don't need to say it to be public, but it doesn't want to work without it... what
@@ -20,5 +26,6 @@ contract TodoList{
     function createTask(string memory _content) public{
         taskCount ++;
         tasks[taskCount] = Task(taskCount, _content, false);
+        emit TaskCreated(taskCount, _content, false); //triggering events
     }
 }
